@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="offset-md-2 col-md-8">
+    <form method="post" role="form" class="form-horizontal" action="">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <fieldset>
+        <legend><span class="glyphicon glyphicon-tint"></span> {% trans "Trigger" %}</legend>
+        {% if form.description.errors %}
+        <div class="form-group has-error has-feedback">
+            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.description.errors }}</div>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+        <div class="form-group">
+            <label for="id_description" class="col-sm-4 control-label">{% trans "Description" %}</label>
+            <div class="col-sm-4">
+                {{ form.description }}
+            </div>
+        {% endif %}
+        </div>
+        {% if form.rss_url.errors %}
+        <div class="form-group has-error has-feedback">
+            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.rss_url.errors }}</div>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+        <div class="form-group">
+            <label for="id_rss_url" class="col-sm-4 control-label">{% trans "RSS URL" %}</label>
+            <div class="col-sm-4">
+                {{ form.rss_url }}
+            </div>
+        {% endif %}
+        </div>
+        {% if form.joplin_folder.errors %}
+        <div class="form-group has-error has-feedback">
+            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.joplin_folder.errors }}</div>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+        <div class="form-group">
+            <label for="id_joplin_folder" class="col-sm-4 control-label">{% trans "Joplin Folder" %}</label>
+            <div class="col-sm-8">
+                {{ form.joplin_folder }}
+                <small id="id_joplin_folder" class="form-text text-muted">Put the name of the joplin folder that will store the data coming from the RSS Feeds</small>
+            </div>
+        {% endif %}
+        </div>
+
+        {% if form.localstorage.errors %}
+        <div class="form-group has-error has-feedback">
+            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.localstorage.errors }}</div>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+        <div class="form-group">
+            <label for="id_localstorage" class="col-sm-4 control-label">{% trans "Local storage" %}</label>
+            <div class="col-sm-8">
+                {{ form.localstorage }}
+                <small id="id_localstorage" class="form-text text-muted">Put the name of the folder (inside {{ MY_NOTES_FOLDER }}) that will store the generated Markdown files coming from the RSS Feeds</small>
+            </div>
+        {% endif %}
+        </div>
+
+        {% if form.reddit.errors %}
+        <div class="form-group has-error has-feedback">
+            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.reddit.errors }}</div>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+        <div class="form-group">
+            <label for="id_reddit" class="col-sm-4 control-label">{% trans "Reddit" %}</label>
+            <div class="col-sm-8">
+                {{ form.reddit }}
+                <small id="id_reddit" class="form-text text-muted">Put the name of the subreddit that will receive the data coming from the RSS Feeds</small>
+            </div>
+        {% endif %}
+        </div>
+
+        {% if form.mastodon.errors %}
+        <div class="form-group has-error has-feedback">
+            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.mastodon.errors }}</div>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+        <div class="form-group">
+            <div class="col-sm-8">
+                {{ form.mastodon }}
+                <em>{% trans "Publish on Mastodon ?" %}</em>
+            </div>
+        {% endif %}
+        </div>
+
+        {% if form.mail.errors %}
+        <div class="form-group has-error has-feedback">
+            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.mail.errors }}</div>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+        <div class="form-group">
+            <div class="col-sm-8">
+                {{ form.mail }}
+                <em>{% trans "Send it by mail ?" %}</em>
+            </div>
+        {% endif %}
+        </div>
+
+        {% if form.status.errors %}
+        <div class="form-group has-error has-feedback">
+            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.status.errors }}</div>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+        <div class="form-group">
+            <div class="col-sm-8">
+                {{ form.status }} {% trans "Status" %}
+            </div>
+        {% endif %}
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-4">
+                <button class="btn btn-primary">{% trans "Save" %}</button>
+            </div>
+        </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
