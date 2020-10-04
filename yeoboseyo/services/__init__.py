@@ -3,14 +3,11 @@
    여보세요 Service
 """
 # std lib
+from django.conf import settings
 from logging import getLogger
 # external lib
 import feedparser
 import pypandoc
-from starlette.config import Config
-
-config = Config('.env')
-
 # create logger
 logger = getLogger(__name__)
 
@@ -26,8 +23,8 @@ class Service:
         """
         init parms
         """
-        self.format_to = config('FORMAT_TO', default='html')
-        self.format_from = config('FORMAT_FROM', default='markdown_github')
+        self.format_to = settings.FORMAT_TO
+        self.format_from = settings.FORMAT_FROM
 
     def _get_content(self, data, which_content):
         """
@@ -66,7 +63,7 @@ class Service:
 
         return content
 
-    async def create_body_content(self, name, entry):
+    def create_body_content(self, name, entry):
         """
         convert the HTML "body" into Markdown
         :param entry:
@@ -76,10 +73,10 @@ class Service:
         # call pypandoc to convert html to markdown
         logger.debug("%s %s %s" % (self.set_content(entry), self.format_to, self.format_from))
         content = pypandoc.convert(self.set_content(entry), self.format_to, format=self.format_from)
-        content += await self.footer(name, entry.link)
+        content += self.footer(name, entry.link)
         return content
 
-    async def footer(self, name, link):
+    def footer(self, name, link):
         """
 
         :param name: name of the link

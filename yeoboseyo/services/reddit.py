@@ -4,17 +4,15 @@
 """
 # std lib
 from __future__ import unicode_literals
+from django.conf import settings
 from logging import getLogger
 # external lib
 from praw import Reddit as RedditAPI
-from starlette.config import Config
 # yeoboseyo
 from yeoboseyo.services import Service
 
 # create logger
 logger = getLogger(__name__)
-
-config = Config('.env')
 
 __all__ = ['Reddit']
 
@@ -25,13 +23,13 @@ class Reddit(Service):
     """
     def __init__(self):
         super().__init__()
-        self.reddit = RedditAPI(client_id=config('REDDIT_CLIENT_ID'),
-                                client_secret=config('REDDIT_CLIENT_SECRET'),
-                                password=config('REDDIT_PASSWORD'),
-                                user_agent=config('REDDIT_USERAGENT'),
-                                username=config('REDDIT_USERNAME'))
+        self.reddit = RedditAPI(client_id=settings.REDDIT_CLIENT_ID,
+                                client_secret=settings.REDDIT_CLIENT_SECRET,
+                                password=settings.REDDIT_PASSWORD,
+                                user_agent=settings.REDDIT_USERAGENT,
+                                username=settings.REDDIT_USERNAME)
 
-    async def save_data(self, trigger, entry) -> bool:
+    def save_data(self, trigger, entry) -> bool:
         """
         Post a new toot to Mastodon
         :param trigger: current trigger

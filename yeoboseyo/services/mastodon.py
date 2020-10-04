@@ -4,18 +4,15 @@
 """
 # std lib
 from __future__ import unicode_literals
+from django.conf import settings
 from logging import getLogger
 # external lib
 from mastodon import Mastodon as MastodonAPI
-# starlette
-from starlette.config import Config
 # yeoboseyo
 from yeoboseyo.services import Service
 
 # create logger
 logger = getLogger(__name__)
-
-config = Config('.env')
 
 __all__ = ['Mastodon']
 
@@ -24,7 +21,7 @@ class Mastodon(Service):
     """
         Service Mastodon
     """
-    async def save_data(self, trigger, entry) -> bool:
+    def save_data(self, trigger, entry) -> bool:
         """
         Post a new toot to Mastodon
         :param trigger: current trigger
@@ -39,12 +36,11 @@ class Mastodon(Service):
         status = False
         try:
             toot_api = MastodonAPI(access_token='yeoboseyo_clientcred.secret',
-                                   api_base_url=config('MASTODON_INSTANCE'))
+                                   api_base_url=settings.MASTODON_INSTANCE)
             status = True
         except ValueError as e:
             logger.error(e)
             status = False
-
         try:
             toot_api.toot(content)
             status = True

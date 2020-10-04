@@ -4,19 +4,17 @@
 """
 # std lib
 from __future__ import unicode_literals
+from django.conf import settings
 from logging import getLogger
 from pathlib import Path
 # external lib
 from jinja2 import Environment, PackageLoader
 from slugify import slugify
-from starlette.config import Config
 # yeoboseyo
 from yeoboseyo.services import Service
 
 # create logger
 logger = getLogger(__name__)
-
-config = Config('.env')
 
 __all__ = ['LocalStorage']
 
@@ -30,17 +28,17 @@ class LocalStorage(Service):
         super().__init__()
         self.format_to = "markdown_github"
         self.format_from = "html"
-        self.local_storage = config('MY_NOTES_FOLDER')
+        self.local_storage = settings.MY_NOTES_FOLDER
 
-    async def save_data(self, trigger, entry) -> bool:
+    def save_data(self, trigger, entry) -> bool:
         """
-        Create a new note to the config('MY_NOTES_FOLDER')
+        Create a new note to the settings.MY_NOTES_FOLDER
         :param trigger: current trigger
         :param entry: data from Feeds
         :return: boolean
         """
         # get the content of the Feeds
-        content = await self.create_body_content(trigger.description, entry)
+        content = self.create_body_content(trigger.description, entry)
         p = Path(self.local_storage + '/' + trigger.localstorage)
         if p.is_dir():
             data = {'title': entry.title,
@@ -49,11 +47,11 @@ class LocalStorage(Service):
                     'source_url': entry.link,
                     'localstorage': trigger.localstorage}
             logger.debug(data)
-            yesno = await self.save_file(**data)
+            yesno = self.save_file(**data)
             return yesno
         return False
 
-    async def save_file(self, **data):
+    def save_file(self, **data):
         """
 
         :param data:

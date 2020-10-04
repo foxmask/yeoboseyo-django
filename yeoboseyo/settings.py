@@ -131,8 +131,23 @@ USE_TZ = env.str('USE_TZ', default='Europe/London')
 STATIC_URL = '/static/'
 STATIC_ROOT = str(ROOT_DIR) + '/static/'
 
+# Yeoboseyo settings
+JOPLIN_URL = env.str('JOPLIN_URL', default='http://127.0.0.1')
+JOPLIN_PORT = env.int('JOPLIN_PORT', default=41184)
+
 BYPASS_BOZO = env.bool('BYPASS_BOZO', default=True)
 MY_NOTES_FOLDER = env.str('MY_NOTES_FOLDER', default='/home/user/MyNotes')
+
+FORMAT_FROM = env.str('FORMAT_FROM', default='markdown_github')
+FORMAT_TO = env.str('FORMAT_TO', default='html')
+
+MASTODON_INSTANCE = env.str('MASTODON_INSTANCE', default='https://mastodon.social')
+REDDIT_CLIENT_ID = env.str('REDDIT_CLIENT_ID', default='')
+REDDIT_CLIENT_SECRET = env.str('REDDIT_CLIENT_SECRET', default='')
+REDDIT_PASSWORD = env.str('REDDIT_PASSWORD', default='')
+REDDIT_USERAGENT = env.str('REDDIT_USERAGENT',
+                           default='Yeoboseyo/1.0 +https://github.com/foxmask/yeoboseyo')
+REDDIT_USERNAME = env.str('REDDIT_USERNAME', default='')
 
 #INTERNAL_IPS = [
 #    # ...

@@ -4,19 +4,16 @@
 """
 # std lib
 from __future__ import unicode_literals
+from django.conf import settings
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from logging import getLogger
 import smtplib
-# external lib
-from starlette.config import Config
 # yeoboseyo
 from yeoboseyo.services import Service
 
 # create logger
 logger = getLogger(__name__)
-
-config = Config('.env')
 
 __all__ = ['Mail']
 
@@ -32,11 +29,11 @@ class Mail(Service):
         init parms
         """
         super().__init__()
-        self.email_server = config('EMAIL_SERVER', default='localhost')
-        self.email_sender = config('EMAIL_SENDER', default='root')
-        self.email_receiver = config('EMAIL_RECEIVER')
+        self.email_server = settings.EMAIL_SERVER
+        self.email_sender = settings.EMAIL_SENDER
+        self.email_receiver = settings.EMAIL_RECEIVER
 
-    async def save_data(self, trigger, entry) -> bool:
+    def save_data(self, trigger, entry) -> bool:
         """
         Send a new mail
         :param trigger: current trigger
@@ -46,7 +43,7 @@ class Mail(Service):
         logger.debug("%s From: %s - To: %s - Title: %s" %
                      (self.email_server, self.email_sender, self.email_receiver, entry.title))
 
-        body = await self.create_body_content(trigger.description, entry)
+        body = self.create_body_content(trigger.description, entry)
 
         msg = MIMEMultipart('alternative')
 
