@@ -100,7 +100,6 @@ class TriggerMixin:
     def get_context_data(self, **kwargs):
         context = super(TriggerMixin, self).get_context_data(**kwargs)
         context['MY_NOTES_FOLDER'] = settings.MY_NOTES_FOLDER
-        print(settings.MY_NOTES_FOLDER)
         return context
 
 

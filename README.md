@@ -1,9 +1,9 @@
 # 여보세요
-![Yeoboseyo](https://scrutinizer-ci.com/g/foxmask/yeoboseyo/badges/quality-score.png?b=master "Yeboseyo")
-
 let's the services say "hello" (여보세요 in Korean : `yeoboseyo`) to each others
 
 This `hello` can be any data you want to get and send from any internet service to another
+
+![Yeoboseyo home page](doc/home.png)
 
 Services covered:
 
@@ -114,14 +114,7 @@ Go on http://0.0.0.0:8000 and fill the form to add new Feeds to track
 * If you plan to publish RSS Feeds into a joplin note, fill the "Joplin folder" field, if not leave it empty.
 * If you plan to publish RSS Feeds on your Mastodon account, check the checkbox "Publish on Mastodon?", if not, leave it unchecked
 
-
-Yeoboseyo home page
-
-![Yeoboseyo home page](yeoboseyo/doc/Yeoboseyo_list.png)
-
-Yeoboseyo form
-
-![Yeoboseyo home page](yeoboseyo/doc/Yeoboseyo_form.png)
+![Yeoboseyo Form](doc/form.png)
 
 ###  :dizzy: Running the engine
 
@@ -180,17 +173,13 @@ Successfully disabled Trigger 'KBS World news science'
 │ 1  │ KBS World news science │ ***Not used *** │ News          │ Disabled │ Ok       │        │ Disabled │ 2020-10-06 14:12:29.370273+00:00 │
 │ 2  │ KBS World news showbiz │ ***Not used *** │ News          │ Ok       │ Disabled │        │ Ok       │ 2020-10-06 13:05:41.615231+00:00 │
 └────┴────────────────────────┴─────────────────┴───────────────┴──────────┴──────────┴────────┴──────────┴──────────────────────────────────┘
-
+```
+and finally run ;)
 ```
  $ ./manage.py run
 여보세요 !
 Trigger KBS World news showbiz : no feeds read
 ```
-
-Home
-
-![Home](doc/home.png)
-
 
 RSS Source
 
@@ -199,4 +188,3 @@ RSS Source
 Publication on Mastodon
 
 ![On Mastodon](doc/Mastodon.png)
-
