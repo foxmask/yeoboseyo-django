@@ -187,44 +187,16 @@ Successfully disabled Trigger 'KBS World news science'
 Trigger KBS World news showbiz : no feeds read
 ```
 
+Home
+
+![Home](doc/home.png)
+
+
 RSS Source
 
-![RSS Source](yeoboseyo/doc/Source_RSS.png)
+![RSS Source](doc/Source_RSS.png)
 
 Publication on Mastodon
 
-![On Mastodon](yeoboseyo/doc/Mastodon.png)
+![On Mastodon](doc/Mastodon.png)
 
-## :mega: Monitoring, managing triggers
-
-### get the list
-get the list of your feeds to check which one provided articles or not
-```bash
-python run.py -a report
-
-여보세요 ! Report
-ID    Name                           Notebook                       Mastodon Status   Triggered
-    1 Joplin News                    News                                 No Disabled 2019-09-27 23:10:26
-    2 Un odieux connard              Connard                              No Enabled  2019-10-10 21:48:55
-    3 New Protonmail                 Protonmail                           No Enabled  2019-10-10 21:48:55
-
-```
-
-### switch the status of a trigger
-switch the status of trigger to on/off
-```bash
-python run.py -a switch -trigger_id 1
-
-여보세요 ! Switch
-Successfully enabled Trigger 'FoxMasK blog'
-```
-and check it again to see the status moving
-```bash
-python run.py -a report
-
-여보세요 ! Report
-ID    Name                           Notebook                       Mastodon Status  Triggered
-    1 Joplin News                    News                                 No Enabled 2019-09-27 23:12:26
-    2 Un odieux connard              Connard                              No Enabled 2019-10-10 21:48:55
-    3 New Protonmail                 Protonmail                           No Enabled 2019-10-10 21:48:55
-```
