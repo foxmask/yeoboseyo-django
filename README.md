@@ -22,7 +22,7 @@ So today, you can read RSS Feeds and this will:
 ### pre requisistes
 
 - python 3.7
-- starlette (the web application)
+- Django (the web application)
 - feedparser (for RSS support)
 - mastodon.py (for Mastodon support)
 - praw (for Reddit support)
@@ -127,25 +127,64 @@ Yeoboseyo form
 
 now that you fill settings, and form, launch the command and see how many feeds are comming
 ```bash
+./manage.py run.py
+```
+to see how are set your feeds enter
+```bash
+./manage.py report
+$ ./manage.py report
+┏━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ID ┃ Name                   ┃ Md Folder       ┃ Joplin Folder ┃ Mastodon ┃ Mail     ┃ Reddit ┃ Status ┃ Triggered                        ┃
+┡━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 1  │ KBS World news science │ ***Not used *** │ News          │ Ok       │ Disabled │        │ Ok     │ 2020-10-06 13:05:40.452455+00:00 │
+│ 2  │ KBS World news showbiz │ ***Not used *** │ News          │ Ok       │ Disabled │        │ Ok     │ 2020-10-06 13:05:41.615231+00:00 │
+└────┴────────────────────────┴─────────────────┴───────────────┴──────────┴──────────┴────────┴────────┴──────────────────────────────────┘
+
+```
+to switch the publishing by mail 
+```bash
+$ ./manage.py switch_mail 1
+Successfully enabled Mail Trigger 'KBS World news science'
+(yeoboseyo-django) ✔ ~/Projects/yeoboseyo-django/yeoboseyo-django [master|✚ 6] 
+16:11 $ ./manage.py report
+┏━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ID ┃ Name                   ┃ Md Folder       ┃ Joplin Folder ┃ Mastodon ┃ Mail     ┃ Reddit ┃ Status ┃ Triggered                        ┃
+┡━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 1  │ KBS World news science │ ***Not used *** │ News          │ Disabled │ Ok       │        │ Ok     │ 2020-10-06 14:11:48.977241+00:00 │
+│ 2  │ KBS World news showbiz │ ***Not used *** │ News          │ Ok       │ Disabled │        │ Ok     │ 2020-10-06 13:05:41.615231+00:00 │
+└────┴────────────────────────┴─────────────────┴───────────────┴──────────┴──────────┴────────┴────────┴──────────────────────────────────┘
+```
+to switch the publishing on mastodon
+```bash
+$ ./manage.py switch_masto 1
+Successfully disabled Mastodon Trigger 'KBS World news science'
+(yeoboseyo-django) ✔ ~/Projects/yeoboseyo-django/yeoboseyo-django [master|✚ 6] 
+16:10 $ ./manage.py report
+┏━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ID ┃ Name                   ┃ Md Folder       ┃ Joplin Folder ┃ Mastodon ┃ Mail     ┃ Reddit ┃ Status ┃ Triggered                        ┃
+┡━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 1  │ KBS World news science │ ***Not used *** │ News          │ Disabled │ Disabled │        │ Ok     │ 2020-10-06 14:10:54.943481+00:00 │
+│ 2  │ KBS World news showbiz │ ***Not used *** │ News          │ Ok       │ Disabled │        │ Ok     │ 2020-10-06 13:05:41.615231+00:00 │
+└────┴────────────────────────┴─────────────────┴───────────────┴──────────┴──────────┴────────┴────────┴──────────────────────────────────┘
+
+```
+to set on or off one feed
+```bash
+./manage.py switch_status 1
+Successfully disabled Trigger 'KBS World news science'
+(yeoboseyo-django) ✔ ~/Projects/yeoboseyo-django/yeoboseyo-django [master|✚ 6] 
+16:12 $ ./manage.py report
+┏━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ID ┃ Name                   ┃ Md Folder       ┃ Joplin Folder ┃ Mastodon ┃ Mail     ┃ Reddit ┃ Status   ┃ Triggered                        ┃
+┡━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 1  │ KBS World news science │ ***Not used *** │ News          │ Disabled │ Ok       │        │ Disabled │ 2020-10-06 14:12:29.370273+00:00 │
+│ 2  │ KBS World news showbiz │ ***Not used *** │ News          │ Ok       │ Disabled │        │ Ok       │ 2020-10-06 13:05:41.615231+00:00 │
+└────┴────────────────────────┴─────────────────┴───────────────┴──────────┴──────────┴────────┴──────────┴──────────────────────────────────┘
+
+```
+ $ ./manage.py run
 여보세요 !
-usage: python run.py [-h] -a {report,go,switch} [-trigger_id TRIGGER_ID]
-
-Yeoboseyo
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -a {report,go,switch}
-                        choose -a report or -a go or -a swtch -trigger_id <id>
-  -trigger_id TRIGGER_ID
-                        trigger id to switch of status
-
-
-python run.py -a go
-
-여보세요 ! RUN and GO
-Trigger FoxMasK blog
- Entries created 1 / Read 1
-
+Trigger KBS World news showbiz : no feeds read
 ```
 
 RSS Source

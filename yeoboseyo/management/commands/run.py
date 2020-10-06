@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 from rich.console import Console
 import time
 from yeoboseyo.models import Trigger
-from yeoboseyo import Rss
+from feedparser_data import Rss
 
 
 console = Console()
@@ -63,6 +63,7 @@ class Command(BaseCommand):
     help = 'Grab all the news'
 
     def handle(self, *args, **options):
+        console.print("여보세요 !")
         triggers = Trigger.objects.all()
         for trigger in triggers:
             if trigger.status:

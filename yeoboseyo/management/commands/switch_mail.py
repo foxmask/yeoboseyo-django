@@ -16,6 +16,7 @@ class Command(BaseCommand):
         parser.add_argument('trigger', type=int)
 
     def handle(self, *args, **options):
+        console.print("여보세요 !")
         if 'trigger' in options:
             """
     
