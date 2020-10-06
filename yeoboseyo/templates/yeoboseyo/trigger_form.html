@@ -10,7 +10,6 @@
         {% if form.description.errors %}
         <div class="form-group has-error has-feedback">
             <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.description.errors }}</div>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         {% else %}
         <div class="form-group">
             <label for="id_description" class="col-sm-4 control-label">{% trans "Description" %}</label>
@@ -22,7 +21,6 @@
         {% if form.rss_url.errors %}
         <div class="form-group has-error has-feedback">
             <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.rss_url.errors }}</div>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         {% else %}
         <div class="form-group">
             <label for="id_rss_url" class="col-sm-4 control-label">{% trans "RSS URL" %}</label>
@@ -34,7 +32,6 @@
         {% if form.joplin_folder.errors %}
         <div class="form-group has-error has-feedback">
             <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.joplin_folder.errors }}</div>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         {% else %}
         <div class="form-group">
             <label for="id_joplin_folder" class="col-sm-4 control-label">{% trans "Joplin Folder" %}</label>
@@ -44,11 +41,9 @@
             </div>
         {% endif %}
         </div>
-
         {% if form.localstorage.errors %}
         <div class="form-group has-error has-feedback">
             <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.localstorage.errors }}</div>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         {% else %}
         <div class="form-group">
             <label for="id_localstorage" class="col-sm-4 control-label">{% trans "Local storage" %}</label>
@@ -58,11 +53,9 @@
             </div>
         {% endif %}
         </div>
-
         {% if form.reddit.errors %}
         <div class="form-group has-error has-feedback">
             <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.reddit.errors }}</div>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         {% else %}
         <div class="form-group">
             <label for="id_reddit" class="col-sm-4 control-label">{% trans "Reddit" %}</label>
@@ -72,45 +65,39 @@
             </div>
         {% endif %}
         </div>
-
         {% if form.mastodon.errors %}
-        <div class="form-group has-error has-feedback">
+        <div class="form-check has-error has-feedback">
             <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.mastodon.errors }}</div>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         {% else %}
-        <div class="form-group">
+        <div class="form-check">
             <div class="col-sm-8">
                 {{ form.mastodon }}
-                <em>{% trans "Publish on Mastodon ?" %}</em>
+                <label class="form-check-label">{% trans "Publish on Mastodon ?" %}</label>
             </div>
         {% endif %}
         </div>
-
         {% if form.mail.errors %}
-        <div class="form-group has-error has-feedback">
+        <div class="form-check has-error has-feedback">
             <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.mail.errors }}</div>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         {% else %}
-        <div class="form-group">
+        <div class="form-check">
             <div class="col-sm-8">
                 {{ form.mail }}
-                <em>{% trans "Send it by mail ?" %}</em>
+                <label class="form-check-label">{% trans "Send it by mail ?" %}</label>
             </div>
         {% endif %}
         </div>
-
         {% if form.status.errors %}
-        <div class="form-group has-error has-feedback">
+        <div class="form-check has-error has-feedback">
             <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert">{{ form.status.errors }}</div>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         {% else %}
-        <div class="form-group">
+        <div class="form-check">
             <div class="col-sm-8">
-                {{ form.status }} {% trans "Status" %}
+                {{ form.status }}
+                <label class="form-check-label">{% trans "Status" %}</label>
             </div>
         {% endif %}
         </div>
-
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-4">
                 <button class="btn btn-primary">{% trans "Save" %}</button>

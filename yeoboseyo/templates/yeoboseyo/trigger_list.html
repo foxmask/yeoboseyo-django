@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-<div class="col-xs-10 col-md-10 col-lg-10">
+<div class="col-xs-10 col-md-10 col-lg-10 offset-lg-1 offset-md-1 offset-xs-1">
     {% include "yeoboseyo/messages.html" %}
-    <div class="row row-cols-3 row-cols-md-3">
+    <div class="row row-cols-4 row-cols-md-4">
     {% for trigger in object_list %}
-        <div class="card-deck mb-4">
+        <div class="card-deck mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{% url 'edit' trigger.id %}" title="Edit Trigger">{{ trigger.description }}</a></h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ trigger.date_created }} - {{ trigger.date_triggered }}</h6>
+                    <h5 class="card-title"><a href="{% url 'edit' trigger.id %}" title="{% trans 'Edit Trigger' %}">{{ trigger.description }}</a></h5>
                     <p class="card-text">
-                        <table>
+                        <table class="table table-hover table-sm">
                             <tr>
                                 <td>Joplin</td><td>{{ trigger.joplin_folder }}</td>
                             </tr>
@@ -19,9 +18,16 @@
                                 <td>LocalStorage</td><td>{% if trigger.localstorage != None %}{{ trigger.localstorage }}{% endif %}</td>
                             </tr>
                             <tr>
-                                <td>Reddit</td><td>{{ trigger.reddit }}</td>
+                                <td>Reddit</td><td>{% if trigger.reddit != None %}{{ trigger.reddit }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">{% trans 'Created' %}</td><td>{{ trigger.date_created }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">{% trans 'Triggered' %} </td><td>{{ trigger.date_triggered }}</td>
                             </tr>
                         </table>
+                    </p>
                 </div>
                 {% include "yeoboseyo/trigger_footer.html" with trigger=trigger %}
             </div>

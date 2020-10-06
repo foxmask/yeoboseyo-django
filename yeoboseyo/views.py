@@ -12,38 +12,61 @@ from yeoboseyo.models import Trigger
 from yeoboseyo.forms import TriggerForm
 
 
+def on_off(status):
+    """
+
+    :param status:
+    :return:
+    """
+    return 'Off' if status else  'On'
+
+
 def switch_status(request, id, status):
     """
 
+    :param request:
+    :param id:
+    :param status:
+    :return:
     """
+
     Trigger.objects.filter(id=id).update(status=status)
-    messages.add_message(request, messages.INFO, f'Trigger switch to <strong>{status}</strong>')
+    messages.add_message(request, messages.INFO, f'Trigger switch to <strong>{on_off(status)}</strong>')
     return HttpResponseRedirect(reverse('home'))
 
 
 def switch_mail(request, id, status):
     """
 
+    :param request:
+    :param id:
+    :param status:
+    :return:
     """
+
     Trigger.objects.filter(id=id).update(mail=status)
-    messages.add_message(request, messages.INFO, f'Trigger mail switch to <strong>{status}</strong>')
+    messages.add_message(request, messages.INFO, f'Trigger mail switch to <strong>{on_off(status)}</strong>')
     return HttpResponseRedirect(reverse('home'))
 
 
 def switch_masto(request, id, status):
     """
 
+    :param request:
+    :param id:
+    :param status:
+    :return:
     """
-    Trigger.objects.filter(id=id).update(mastodon=status)
-    messages.add_message(request, messages.INFO, f'Trigger mastodon switch to <strong>{status}</strong>')
-    return HttpResponseRedirect(reverse('home'))
 
+    Trigger.objects.filter(id=id).update(mastodon=status)
+    messages.add_message(request, messages.INFO, f'Trigger mastodon switch to <strong>{on_off(status)}</strong>')
+    return HttpResponseRedirect(reverse('home'))
 
 
 class Home(ListView):
 
     model = Trigger
-    paginate_by = 9
+    paginate_by = 8
     ordering = ['-date_created']
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -84,13 +107,12 @@ class TriggerMixin:
 class TriggerCreate(TriggerMixin, CreateView):
 
     model = Trigger
-    fields = '__all__'
+    form_class = TriggerForm
     success_url = '/'
 
 
 class TriggerUpdate(TriggerMixin, UpdateView):
 
     model = Trigger
-    fields = '__all__'
+    form_class = TriggerForm
     success_url = '/'
-
