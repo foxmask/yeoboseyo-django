@@ -22,9 +22,12 @@
             <i class="fas fa-seedling"></i>
             <span class="menu-collapsed">Yeoboseyo 여보세요 Hello</span>
         </a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="{% url 'add' %}">{% trans 'New trigger' %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?display={{ display }}">{{ display }}</a>
           </li>
         </ul>
     </nav>

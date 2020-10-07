@@ -77,11 +77,17 @@ def switch_masto(request, id, status):
     return HttpResponseRedirect(reverse('home'))
 
 
-class HomeMixin(ListView):
+class Home(ListView):
 
     model = Trigger
     paginate_by = 100
     ordering = ['description']
+
+    def get_template_names(self):
+        display = 'table'
+        if 'display' in self.request.GET and self.request.GET['display'] in ('table', 'card'):
+            display = self.request.GET['display']
+        return ['yeoboseyo/trigger_list_%s.html' % display]
 
     def get_context_data(self, *, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
@@ -89,7 +95,7 @@ class HomeMixin(ListView):
         page_size = self.paginate_by
         context_object_name = self.get_context_object_name(queryset)
 
-        context = super(HomeMixin, self).get_context_data(**kwargs)
+        context = super(Home, self).get_context_data(**kwargs)
         if page_size:
             paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
             context['paginator'] = paginator
@@ -102,21 +108,16 @@ class HomeMixin(ListView):
             context['is_paginated'] = False
             context['object_list'] = queryset
 
+        display = 'table'
+        if 'display' in self.request.GET and self.request.GET['display'] in ('table', 'card'):
+            display = self.request.GET['display']
+        context['display'] = 'card' if display == 'table' else 'table'
+
         if context_object_name is not None:
             context[context_object_name] = queryset
         context.update(kwargs)
 
         return context
-
-
-class HomeCard(HomeMixin, ListView):
-
-    template_name = 'yeoboseyo/trigger_list_card.html'
-
-
-class HomeList(HomeMixin, ListView):
-
-    template_name = 'yeoboseyo/trigger_list_table.html'
 
 
 class TriggerMixin:
