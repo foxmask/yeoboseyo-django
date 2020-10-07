@@ -29,7 +29,7 @@
                         </table>
                     </p>
                 </div>
-                {% include "yeoboseyo/trigger_footer.html" with trigger=trigger %}
+                {% include "yeoboseyo/trigger_actions_cards.html" with trigger=trigger %}
             </div>
         </div>
     {% endfor %}
@@ -55,7 +55,7 @@
             <a class="page-link" aria-label="Next" href="?page={{ page_obj.next_page_number }}">{% trans 'next' %}</a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{% trans 'Last' %} ({{ page_obj.paginator.num_pages }}) &raquo;</a>
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{% trans 'last' %} ({{ page_obj.paginator.num_pages }}) &raquo;</a>
           </li>
         {% endif %}
       </ul>

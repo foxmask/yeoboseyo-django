@@ -5,11 +5,25 @@
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.views.generic import ListView, CreateView, UpdateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from yeoboseyo.models import Trigger
 from yeoboseyo.forms import TriggerForm
+
+
+def delete_trigger(request, pk):
+    """
+
+    :param request:
+    :param id:
+    :return:
+    """
+    trigger = Trigger.objects.get(id=pk)
+    description = trigger.description
+    trigger.delete()
+    messages.add_message(request, messages.INFO, f'Trigger {description} <strong>deleted</strong>')
+    return HttpResponseRedirect(reverse('home'))
 
 
 def on_off(status):
@@ -18,7 +32,7 @@ def on_off(status):
     :param status:
     :return:
     """
-    return 'Off' if status else  'On'
+    return 'Off' if status else 'On'
 
 
 def switch_status(request, id, status):
@@ -63,11 +77,11 @@ def switch_masto(request, id, status):
     return HttpResponseRedirect(reverse('home'))
 
 
-class Home(ListView):
+class HomeMixin(ListView):
 
     model = Trigger
-    paginate_by = 8
-    ordering = ['-date_created']
+    paginate_by = 100
+    ordering = ['description']
 
     def get_context_data(self, *, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
@@ -75,7 +89,7 @@ class Home(ListView):
         page_size = self.paginate_by
         context_object_name = self.get_context_object_name(queryset)
 
-        context = super(Home, self).get_context_data(**kwargs)
+        context = super(HomeMixin, self).get_context_data(**kwargs)
         if page_size:
             paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
             context['paginator'] = paginator
@@ -95,6 +109,16 @@ class Home(ListView):
         return context
 
 
+class HomeCard(HomeMixin, ListView):
+
+    template_name = 'yeoboseyo/trigger_list_card.html'
+
+
+class HomeList(HomeMixin, ListView):
+
+    template_name = 'yeoboseyo/trigger_list_table.html'
+
+
 class TriggerMixin:
 
     def get_context_data(self, **kwargs):
@@ -107,11 +131,17 @@ class TriggerCreate(TriggerMixin, CreateView):
 
     model = Trigger
     form_class = TriggerForm
-    success_url = '/'
+    success_url = reverse_lazy('home')
 
 
 class TriggerUpdate(TriggerMixin, UpdateView):
 
     model = Trigger
     form_class = TriggerForm
-    success_url = '/'
+    success_url = reverse_lazy('home')
+
+
+class TriggerDelete(DeleteView):
+
+    model = Trigger
+    success_url = reverse_lazy('home')

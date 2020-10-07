@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from yeoboseyo.views import Home, TriggerCreate, TriggerUpdate, \
-    switch_status, switch_mail, switch_masto
+from yeoboseyo.views import HomeList, HomeCard, TriggerCreate, TriggerUpdate, \
+    switch_status, switch_mail, switch_masto, delete_trigger
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Home.as_view(), name="home"),
+    path('?list', HomeList.as_view(), {'template_name': 'trigger_list_table.html'}, name="homelist"),
+    path('', HomeCard.as_view(), {'template_name': 'trigger_list_card.html'},  name="home"),
     path('add', TriggerCreate.as_view(), name='add'),
     path('edit/<int:pk>/', TriggerUpdate.as_view(), name='edit'),
-    path('delete/<int:pk>/', TriggerUpdate.as_view(), name='delete'),
+    path('delete/<int:pk>/', delete_trigger, name='delete'),
     path('switch_status/<int:id>/<int:status>', switch_status, name='switch_status'),
     path('switch_mail/<int:id>/<int:status>', switch_mail, name='switch_mail'),
     path('switch_masto/<int:id>/<int:status>', switch_masto, name='switch_masto'),
