@@ -16,13 +16,14 @@ class Command(BaseCommand):
         parser.add_argument('trigger', type=int)
 
     def handle(self, *args, **options):
+        """
+
+        :param options:  to pass the trigger to switch on/off
+        :return:
+        """
         console.print("여보세요 !")
+
         if 'trigger' in options:
-            """
-    
-            :param trigger_id:  the id of the trigger to switch on/off Masto publishing
-            :return:
-            """
             trigger = Trigger.objects.get(id=options.get('trigger'))
             date_triggered = arrow.utcnow().to(settings.TIME_ZONE.format('YYYY-MM-DD HH:mm:ssZZ'))
             trigger.mastodon = not trigger.mastodon
@@ -33,4 +34,3 @@ class Command(BaseCommand):
                 msg = f"Successfully disabled Mastodon Trigger '{trigger.description}'"
 
             console.print(msg)
-

@@ -59,13 +59,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'debug_toolbar',
+    # 'debug_toolbar',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -149,8 +149,8 @@ REDDIT_USERAGENT = env.str('REDDIT_USERAGENT',
                            default='Yeoboseyo/1.0 +https://github.com/foxmask/yeoboseyo')
 REDDIT_USERNAME = env.str('REDDIT_USERNAME', default='')
 
-#INTERNAL_IPS = [
+# INTERNAL_IPS = [
 #    # ...
 #    '127.0.0.1',
 #    # ...
-#]
+# ]
